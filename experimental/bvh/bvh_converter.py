@@ -42,5 +42,5 @@ if __name__ == "__main__":
     converter = BVHConverter(skeleton_frame_marker_dimension, marker_names, connections)
     bvh_content = converter.generate_bvh()
 
-    with open("output.bvh", "w") as file:
+    with open("../output.bvh", "w") as file:
         file.write(bvh_content)
