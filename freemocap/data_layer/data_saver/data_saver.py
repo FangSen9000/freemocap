@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from freemocap.data_layer.data_saver.data_loader import DataLoader
-from freemocap.data_layer.data_saver.data_models import InfoDict
+from freemocap.data_layer.data_saver.models.data_models import InfoDict
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,8 @@ class DataSaver:
 
     def save_to_json(self, save_path: Union[str, Path] = None):
         dict_to_save = {}
-        dict_to_save["info"] = self._get_info_dict().dict()
+        info_dict = self._get_info_dict().dict()
+        dict_to_save["info"] = info_dict
         dict_to_save["data_by_frame"] = self.recording_data_by_frame
 
         if save_path is None:
@@ -98,9 +99,11 @@ class DataSaver:
         return frame_data_row
 
     def _get_info_dict(self):
+        segment_lengths = self._data_loader.segment_lengths
+        schemas = self._data_loader.skeleton_schema.dict()
         return InfoDict(
-            segment_lengths=self._data_loader.segment_lengths,
-            schemas=[self._data_loader.skeleton_schema.dict()],
+            segment_lengths=segment_lengths,
+            schemas=schemas,
         )
 
 

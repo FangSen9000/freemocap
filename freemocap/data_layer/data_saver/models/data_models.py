@@ -114,7 +114,7 @@ class InfoDict(BaseModel):
     """
 
     segment_lengths: Dict[str, Any] = Field(default_factory=dict, description="The lengths of the segments of the body")
-    schemas: List[BaseModel] = Field(default_factory=list, description="The schemas for the tracked points")
+    schemas: Dict[str,Any] = Field(default_factory=dict, description="The schemas for the tracked points")
 
 
 if __name__ == "__main__":
